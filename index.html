@@ -219,6 +219,10 @@
     button#analyzeButton {
       margin-top: 12px;
     }
+
+    button#downloadButton {
+      margin-top: 4px;
+    }
   </style>
   <head>
     <meta charset="UTF-8">
@@ -296,7 +300,7 @@
       </div>
       <div class="output-section">
         <h2>Output</h2>
-        <textarea id="outputBox" rows="16" readonly></textarea>
+        <textarea id="outputBox" rows="14" readonly></textarea>
         <br>
         <button id="downloadButton">Download</button>
       </div>
@@ -454,7 +458,6 @@
     lockBtn.addEventListener('click', handleLock);
     unlockBtn.addEventListener('click', handleUnlock);
 
-
     instantAnalysis = false;
 
     const anteInput = document.getElementById('ante');
@@ -538,7 +541,7 @@
     function performAnalysis() {
       // Get input values
       const ante = parseInt(anteInput.value, 10);
-      const cardsPerAnte = Array(ante).fill(cardsPerAnteInput.value);
+      const cardsPerAnte = Array(ante).fill(Number(cardsPerAnteInput.value));
       const deck = deckSelect.value;
       const stake = stakeSelect.value;
       const version = parseInt(versionSelect.value);
@@ -724,34 +727,10 @@
         anteInput.value = urlAnte;
         anteInput.value = Math.min(anteInput.value, 999);
         anteInput.value = Math.max(anteInput.value, 1);
-        cardsPerAnteInput.value = "15";
-        var input = Array(anteInput.value).fill(cardsPerAnteInput.value);
-        var fixedInput = []
-        for (let i = 0; i < anteInput.value; i++) {
-          if (input.length < i) {
-            fixedInput.push(0);
-          } else {
-            fixedInput.push(input[i]);
-          }
-          if (fixedInput[i] == undefined) fixedInput[i] = 0;
-          if (isNaN(fixedInput[i])) fixedInput[i] = 0;
-        }
-        cardsPerAnteInput.value = fixedInput;
+        cardsPerAnteInput.value = Array(anteInput.value).fill(Number(urlCardsPerAnte ? urlCardsPerAnte : "15"));
       }
       if (urlCardsPerAnte) {
-        cardsPerAnteInput.value = urlCardsPerAnte;
-        var input = Array(anteInput.value).fill(cardsPerAnteInput.value);
-        var fixedInput = []
-        for (let i = 0; i < anteInput.value; i++) {
-          if (input.length < i) {
-            fixedInput.push(0);
-          } else {
-            fixedInput.push(input[i]);
-          }
-          if (fixedInput[i] == undefined) fixedInput[i] = 0;
-          if (isNaN(fixedInput[i])) fixedInput[i] = 0;
-        }
-        cardsPerAnteInput.value = fixedInput;
+        cardsPerAnteInput.value = Array(anteInput.value).fill(Number(urlCardsPerAnte));
       }
       if (urlDeck) {
         deckInput.value = urlDeck;
@@ -775,33 +754,12 @@
       anteInput.addEventListener('input', () => {
         anteInput.value = Math.min(anteInput.value, 999);
         anteInput.value = Math.max(anteInput.value, 1);
-        var input = Array(anteInput.value).fill(cardsPerAnteInput.value);
-        var fixedInput = []
-        for (let i = 0; i < anteInput.value; i++) {
-          if (input.length < i) {
-            fixedInput.push(0);
-          } else {
-            fixedInput.push(input[i]);
-          }
-          if (fixedInput[i] == undefined) fixedInput[i] = 0;
-          if (isNaN(fixedInput[i])) fixedInput[i] = 0;
-        }
-        cardsPerAnteInput.value = fixedInput;
       });
 
       cardsPerAnteInput.addEventListener('input', () => {
-        var input = Array(anteInput.value).fill(cardsPerAnteInput.value);
-        var fixedInput = []
-        for (let i = 0; i < anteInput.value; i++) {
-          if (input.length < i) {
-            fixedInput.push(0);
-          } else {
-            fixedInput.push(input[i]);
-          }
-          if (fixedInput[i] == undefined) fixedInput[i] = 0;
-          if (isNaN(fixedInput[i])) fixedInput[i] = 0;
-        }
-        cardsPerAnteInput.value = fixedInput;
+        cardsPerAnteInput.value = Math.min(cardsPerAnteInput.value, 100);
+        cardsPerAnteInput.value = Math.max(cardsPerAnteInput.value, 0);
+        cardsPerAnteInput.value = Array(anteInput.value).fill(Number(cardsPerAnteInput.value));
       });
 
       function filterSeed(seed) {
