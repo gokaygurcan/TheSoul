@@ -842,30 +842,6 @@ function searchAndHighlight() {
             }
             queueInfo.appendChild(voucherElement);
 
-            const bossElement = document.createElement('div');
-            bossElement.innerHTML = '<b><u>Boss</u></b>';
-            bossElement.style = "font-size: 16px";
-
-            if (boss) {
-                const bossContainer = document.createElement('div');
-                bossContainer.className = 'bossContainer';
-
-                const bossCanvas = document.createElement('canvas');
-                bossCanvas.width = 34;
-                bossCanvas.height = 34;
-                renderBoss(bossCanvas, boss);
-                bossContainer.appendChild(bossCanvas);
-
-                const bossNameElement = document.createElement('div');
-                bossNameElement.textContent = boss;
-                bossNameElement.classList.add('bossName');
-                bossContainer.appendChild(bossNameElement);
-
-                bossElement.appendChild(bossContainer);
-            }
-
-            queueInfo.appendChild(bossElement);
-
             const tagsElement = document.createElement('div');
             tagsElement.innerHTML = '<b><u>Tags</u></b>';
             tagsElement.style = "font-size: 16px";
@@ -893,6 +869,30 @@ function searchAndHighlight() {
 
             tagsElement.appendChild(tagsContainer);
             queueInfo.appendChild(tagsElement);
+
+            const bossElement = document.createElement('div');
+            bossElement.innerHTML = '<b><u>Boss</u></b>';
+            bossElement.style = "font-size: 16px";
+
+            if (boss) {
+                const bossContainer = document.createElement('div');
+                bossContainer.className = 'bossContainer';
+
+                const bossCanvas = document.createElement('canvas');
+                bossCanvas.width = 34;
+                bossCanvas.height = 34;
+                renderBoss(bossCanvas, boss);
+                bossContainer.appendChild(bossCanvas);
+
+                const bossNameElement = document.createElement('div');
+                bossNameElement.textContent = boss;
+                bossNameElement.classList.add('bossName');
+                bossContainer.appendChild(bossNameElement);
+
+                bossElement.appendChild(bossContainer);
+            }
+
+            queueInfo.appendChild(bossElement);
 
             queueContainer.appendChild(queueInfo);
 
